@@ -10,6 +10,6 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/AuthorityWang/PartNeXt_lib',
     author='AuthorityWang',
-    author_email='wangph1@shanghaitech.edu.cn',
+    author_email='wangph12025@shanghaitech.edu.cn',
     packages=find_packages()
 )
