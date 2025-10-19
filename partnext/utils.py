@@ -4,20 +4,6 @@ import trimesh
 import colorsys
 import numpy as np
 
-def norm_mesh(mesh):
-    rescale = max(mesh.extents)/2.
-    tform = [
-        -(mesh.bounds[1][i] + mesh.bounds[0][i])/2.
-        for i in range(3)
-    ]
-    matrix = np.eye(4)
-    matrix[:3, 3] = tform
-    mesh.apply_transform(matrix)
-    matrix = np.eye(4)
-    matrix[:3, :3] /= rescale
-    mesh.apply_transform(matrix)
-    return mesh
-
 def scene2meshes(scene):
     if not isinstance(scene, trimesh.Scene):
         raise ValueError("Input must be trimesh.Scene")
@@ -44,6 +30,92 @@ def scene2meshes(scene):
         else:
             raise ValueError("Scene must contain only trimesh.Trimesh")
     return meshes
+
+def meshes2scene(meshes):
+    scene = trimesh.Scene()
+    for mesh in meshes:
+        scene.add_geometry(mesh)
+    return scene
+
+def get_bbox(vertices: np.ndarray):
+    min_vals = np.min(vertices, axis=0)
+    max_vals = np.max(vertices, axis=0)
+    return min_vals, max_vals
+
+# normalize meshes to a fixed diagonal length
+def normalize_meshes_diag(meshes: list, norm_diag_len: float = 1.0) -> tuple:
+    verts_all = []
+    for mesh in meshes:
+        verts_all.append(np.asarray(mesh.vertices, dtype=np.float32))
+    
+    if len(verts_all) == 0:
+        return None
+    
+    verts_all = np.vstack(verts_all)
+    
+    # calculate diag length
+    bbox_min = np.min(verts_all, axis=0)
+    bbox_max = np.max(verts_all, axis=0)
+    diag_vec = bbox_max - bbox_min
+    diag_len = float(np.linalg.norm(diag_vec))
+    
+    if diag_len <= 0:
+        scale = norm_diag_len
+    else:
+        scale = norm_diag_len / diag_len
+    
+    # scale and shift
+    verts_all_scaled = verts_all * scale
+    bbox_min2 = np.min(verts_all_scaled, axis=0)
+    bbox_max2 = np.max(verts_all_scaled, axis=0)
+    center_after_scale = (bbox_min2 + bbox_max2) / 2.0
+    shift = -center_after_scale
+    
+    # perform normalization
+    normalized_meshes = []
+    for mesh in meshes:
+        new_mesh = mesh.copy()
+        v = np.asarray(new_mesh.vertices, dtype=np.float32)
+        v = v * scale + shift
+        new_mesh.vertices = v
+        normalized_meshes.append(new_mesh)
+    
+    return normalized_meshes, scale, shift
+
+
+def normalize_meshes_max_axis(meshes: list, norm_max_axis_len: float = 1.0) -> tuple:
+    verts_all = []
+    for mesh in meshes:
+        verts_all.append(np.asarray(mesh.vertices, dtype=np.float32))
+    
+    if len(verts_all) == 0:
+        return None
+    
+    verts_all = np.vstack(verts_all)
+    
+    # calculate max axis
+    bbox_min = np.min(verts_all, axis=0)
+    bbox_max = np.max(verts_all, axis=0)
+    original_max_axis = np.max(bbox_max - bbox_min)
+
+    # scale and shift
+    scale = norm_max_axis_len / original_max_axis
+    verts_all_scaled = verts_all * scale
+    bbox_min2 = np.min(verts_all_scaled, axis=0)
+    bbox_max2 = np.max(verts_all_scaled, axis=0)
+    center_after_scale = (bbox_min2 + bbox_max2) / 2.0
+    shift = -center_after_scale
+    
+    # perform normalization
+    normalized_meshes = []
+    for mesh in meshes:
+        new_mesh = mesh.copy()
+        v = np.asarray(new_mesh.vertices, dtype=np.float32)
+        v = v * scale + shift
+        new_mesh.vertices = v
+        normalized_meshes.append(new_mesh)
+    
+    return normalized_meshes, scale, shift
 
 def generate_mask_color(num_masks):
     hues = np.linspace(0, 1, num_masks, endpoint=False)
