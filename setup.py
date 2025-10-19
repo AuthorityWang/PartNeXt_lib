@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0.0'
+version = '1.0.1'
 
 setup(
     name='partnext',
@@ -11,5 +11,10 @@ setup(
     url='https://github.com/AuthorityWang/PartNeXt',
     author='AuthorityWang',
     author_email='wangph12025@shanghaitech.edu.cn',
-    packages=find_packages()
+    packages=find_packages(),
+    install_requires=[
+        'trimesh', 
+        'datasets', 
+        'numpy'
+    ]
 )
