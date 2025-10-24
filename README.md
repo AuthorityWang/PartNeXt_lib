@@ -3,7 +3,7 @@ Official dataset toolkit for _PartNeXt: A Next-Generation Dataset for Fine-Grain
 
 <div align="center">
 
-[![arXiv](https://img.shields.io/badge/arXiv-Paper-red?logo=arxiv&logoColor=white)](https://authoritywang.github.io/partnext/)
+[![arXiv](https://img.shields.io/badge/arXiv-Paper-red?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2510.20155)
 [![Project Page](https://img.shields.io/badge/Project_Page-Website-green?logo=homepage&logoColor=white)](https://authoritywang.github.io/partnext/)
 [![🤗 Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-blue)](https://huggingface.co/datasets/AuWang/PartNeXt)
 
