@@ -13,7 +13,7 @@ Official dataset toolkit for _PartNeXt: A Next-Generation Dataset for Fine-Grain
 
 **Neurips 2025 Dataset and Benchmark Track**
 
-| [Project Page](https://authoritywang.github.io/partnext/) | [Paper]() | [Dataset](https://huggingface.co/datasets/AuWang/PartNeXt) | [Dataset Toolkit]() | [Benchmark code (Soon)]() | [Annotation code (Soon)]() |<br>
+| [Project Page](https://authoritywang.github.io/partnext/) | [Paper](https://arxiv.org/abs/2510.20155) | [Dataset](https://huggingface.co/datasets/AuWang/PartNeXt) | [Dataset Toolkit](https://github.com/AuthorityWang/PartNeXt_lib) | [Benchmark code (Soon)]() | [Annotation code (Soon)]() |<br>
 
 </div>
 
@@ -22,9 +22,9 @@ Official dataset toolkit for _PartNeXt: A Next-Generation Dataset for Fine-Grain
 Please refer to [PartNeXt](https://github.com/AuthorityWang/PartNeXt) repo for usage of this lib. 
 
 ## Acknowledgement
-Our PartNeXt dataset is based on [Objaverse](https://objaverse.allenai.org/), [ABO](https://amazon-berkeley-objects.s3.amazonaws.com/index.html), [3D-Future](https://tianchi.aliyun.com/dataset/98063), thanks for these awesome datasets. If there is any license issue, please contact us and we will remove the data. 
+Our PartNeXt dataset is based on [Objaverse](https://objaverse.allenai.org/), [ABO](https://amazon-berkeley-objects.s3.amazonaws.com/index.html), [3D-Future](https://tianchi.aliyun.com/dataset/98063), thanks for these awesome datasets. If there is any license issue, please contact us, and we will remove the data. 
 
-Thanks for Benyuan AI data for data annotation. 
+Thanks to Benyuan AI data for data annotation. 
 
 If you find our dataset useful in your research, please consider citing our paper.
 ```
